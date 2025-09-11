@@ -1,34 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spellbound By Lucy</title>
-    <link rel="stylesheet" href="../styles/styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spellbound By Lucy</title>
+  <meta name="description" content="Spellbound By Lucy offers facials, lash extensions, brow artistry, waxing, and personalized skin treatments in a relaxing and welcoming environment.">
+  <link rel="stylesheet" href="../styles/styles.css">
 </head>
 <body>
+    <!-- Background Layers -->
+    <div class="gradient-bg"></div>
+    <canvas id="starCanvas"></canvas>
+
+
     <!-- Header with Sticky Navigation -->
     <header>
-        <nav class="navbar">
-            <div class="logo">
-                <img src="../Logo.png" alt="Your Logo" />
-            </div>
-            <ul class="nav-links">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#after_care">After Care</a></li>
-            </ul>
-            <div class="menu-toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-        </nav>
+    <nav class="navbar" aria-label="Main Navigation">
+    
+        <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+        <li><a href="#after_care">After Care</a></li>
+        </ul>
+        <button class="menu-toggle" id="mobile-menu" aria-label="Toggle Menu">
+        <span class="nav_star"></span>
+        <span class="nav_star"></span>
+        <span class="nav_star"></span>
+        </button>
+        <div class="logo">
+            <img src="../Logo.png" alt="Spellbound By Lucy Logo" class="logo-img" />
+        </div>
+    </nav>
     </header>
 
-<main>
+    <!-- Main Content -->
+    <main>
     <section id="home" class="section">
         <h1>Welcome to Spellbound By Lucy</h1>
         <p>Where beauty meets self-care. We specialize in personalized skin treatments, lash extensions, and brow artistry — all in a relaxing, welcoming environment.</p>
@@ -42,11 +50,11 @@
     <section id="services" class="section">
         <h2>Services</h2>
         <ul>
-            <li><strong>Facials:</strong> Customized treatments for hydration, anti-aging, and acne-prone skin.</li>
-            <li><strong>Brow Shaping &amp; Tinting:</strong> Define and enhance your natural brows.</li>
-            <li><strong>Lash Extensions:</strong> Classic, hybrid, and volume sets to match your style.</li>
-            <li><strong>Waxing:</strong> Gentle and effective hair removal for face and body.</li>
-            <li><strong>Chemical Peels:</strong> Professional exfoliation for radiant, refreshed skin.</li>
+        <li><strong>Facials:</strong> Customized treatments for hydration, anti-aging, and acne-prone skin.</li>
+        <li><strong>Brow Shaping &amp; Tinting:</strong> Define and enhance your natural brows.</li>
+        <li><strong>Lash Extensions:</strong> Classic, hybrid, and volume sets to match your style.</li>
+        <li><strong>Waxing:</strong> Gentle and effective hair removal for face and body.</li>
+        <li><strong>Chemical Peels:</strong> Professional exfoliation for radiant, refreshed skin.</li>
         </ul>
     </section>
 
@@ -58,25 +66,49 @@
         <p><strong>Hours:</strong><br>
         Mon–Fri: 10am–6pm<br>
         Sat: 9am–2pm<br>
-        Sun: Closed</p>
+        Sun: Closed
+        </p>
     </section>
 
     <section id="after_care" class="section">
         <h2>After Care</h2>
         <ul>
-            <li><strong>Facials:</strong> Avoid direct sun for 24 hours, moisturize, and wear SPF daily.</li>
-            <li><strong>Lash Extensions:</strong> Keep lashes dry for the first 24 hours, avoid oil-based products, and brush daily.</li>
-            <li><strong>Waxing:</strong> Skip hot showers, saunas, or swimming for 24 hours; moisturize with a gentle lotion.</li>
-            <li><strong>Chemical Peels:</strong> Mild redness or peeling may occur for 2–3 days; avoid exfoliating products until healed.</li>
+        <li><strong>Facials:</strong> Avoid direct sun for 24 hours, moisturize, and wear SPF daily.</li>
+        <li><strong>Lash Extensions:</strong> Keep lashes dry for the first 24 hours, avoid oil-based products, and brush daily.</li>
+        <li><strong>Waxing:</strong> Skip hot showers, saunas, or swimming for 24 hours; moisturize with a gentle lotion.</li>
+        <li><strong>Chemical Peels:</strong> Mild redness or peeling may occur for 2–3 days; avoid exfoliating products until healed.</li>
         </ul>
     </section>
-</main>
+    </main>
 
-<!-- Footer -->
-<footer>
-    <p>© 2025 Spellbound By Lucy. All rights reserved.</p>
+    <!-- Footer -->
+<footer class="footer">
+    <div class="grass-container">
+        <!-- Grass blades will be generated with CSS (or JS) -->
+        <div class="grass-blade"></div>
+        <!-- Flowers -->
+        <div class="flower daisy" style="left:20%; animation-delay:-1s;">
+            <div class="petals"></div>
+        </div>
+        <div class="flower violet" style="left:35%; animation-delay:-2s;">
+            <div class="petals"></div>
+        </div>
+
+    </div>
+    
+    <div class="footer-content">
+        <div class="footer-links">
+            <a href="#">Home</a>
+            <a href="#">About</a>
+            <a href="#">Contact</a>
+        </div>
+    </div>
+
+    <div class="copyright">
+        <p>© 2025 Spellbound By Lucy. All rights reserved.</p>
+    </div>
 </footer>
-<canvas id="rain"></canvas>
-<script src="../components/script.js"></script>
+  <!-- Scripts -->
+  <script src="../components/script.js"></script>
 </body>
 </html>
