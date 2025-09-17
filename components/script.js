@@ -111,33 +111,59 @@ window.addEventListener("resize", resizeCanvas);
 ------------------------------ */
 
 const grassContainer = document.querySelector('.grass-container');
-const flowerColors = ['daisy','violet','yellow','orange','red'];
+  const flowerColors = ['daisy','cherry','lavender','buttercup','peach','coral'];
 
-// Generate grass blades
-for (let i = 0; i < 150; i++) {
+  // --- GRASS (denser) ---
+  const grassCount = 1000;
+  for (let i = 0; i < grassCount; i++) {
     const blade = document.createElement('div');
-    blade.classList.add('grass-blade');
-    blade.style.setProperty('--i', i);
-    blade.style.height = `${30 + Math.random() * 15}px`;
-    blade.style.left = `${i}%`;
+    blade.className = 'grass-blade';
+    const h = 1 + Math.random() * 50; // 20px - 70px
+    blade.style.height = `${h}px`;
+    // spread across width evenly with a small random nudge
+    const left = (i / (grassCount - 1)) * 100 + (Math.random() - 0.5) * 0.8;
+    blade.style.left = `${left}%`;
     blade.style.animationDelay = `-${Math.random() * 3}s`;
     grassContainer.appendChild(blade);
-}
+  }
 
-// Generate flowers
-for (let i = 0; i < 35; i++) {
+  // --- FLOWERS (random sizes + stalk lengths) ---
+  const flowerCount = 20;
+  for (let i = 0; i < flowerCount; i++) {
     const flower = document.createElement('div');
     const color = flowerColors[Math.floor(Math.random() * flowerColors.length)];
-    flower.classList.add('flower', color);
-    flower.style.left = `${Math.random() * 95}%`;
+    flower.className = `flower ${color}`;
+
+    // place horizontally
+    flower.style.left = `${Math.random() * 94 + 2}%`;
+
+    // animation offset
     flower.style.animationDelay = `-${Math.random() * 4}s`;
-    
+
+    // random scale 0.6 .. 1.3
+    const scale = (0.3 + Math.random() * 0.6);
+    flower.style.setProperty('--scale', scale.toFixed(2));
+
+    // stalk length proportional to scale (tweak constants to taste)
+    const stalkPx = Math.round(18 + scale * 20); // ~30-46px typical
+    flower.style.setProperty('--stalk-length', `${stalkPx}px`);
+
+    // create inner and petals
+    const inner = document.createElement('div');
+    inner.className = 'flower-inner';
+
     const petals = document.createElement('div');
-    petals.classList.add('petals');
-    flower.appendChild(petals);
-    
+    petals.className = 'petals';
+
+    const center = document.createElement('div');
+    center.className = 'center';
+
+    inner.appendChild(petals);
+    inner.appendChild(center);
+    flower.appendChild(inner);
+
     grassContainer.appendChild(flower);
-}
+  }
 
 
 /* ------------------------------
