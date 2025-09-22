@@ -1,12 +1,51 @@
 /* ------------------------------
    Mobile Menu Toggle
 ------------------------------ */
-const menu = document.getElementById("mobile-menu");
-const navLinks = document.querySelector(".nav-links");
+const menuToggle = document.getElementById('mobile-menu');
+const navbar = document.querySelector('.navbar');
+const navLinks = document.querySelectorAll('.nav-links a');
 
-menu.addEventListener("click", () => {
-  navLinks.classList.toggle("active");
+menuToggle.addEventListener('click', () => {
+  menuToggle.classList.toggle('open');
+  navbar.classList.toggle('active');
 });
+
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    menuToggle.classList.remove('open');
+
+    // Instead of immediately removing 'active', toggle a 'closing' class
+    navbar.classList.add('closing');
+
+    // wait for the transition duration (match CSS: 0.4s)
+    setTimeout(() => {
+      navbar.classList.remove('active', 'closing');
+    }, 400); 
+  });
+});
+
+
+const topRow = document.querySelector('.navbar > .top-row');
+const extraOffset = 50; // adjust this number to control space from top
+
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    const navbarHeight = topRow.offsetHeight;
+
+    window.scrollTo({
+      top: target.offsetTop - navbarHeight - extraOffset,
+      behavior: 'smooth'
+    });
+  });
+});
+
+
+
+
+
+
 
 
 /* ------------------------------
@@ -99,13 +138,6 @@ function startShootingStars() {
     }, 2000);
 }
 
-// Initialize
-resizeCanvas();
-animate();
-startShootingStars();
-window.addEventListener("resize", resizeCanvas);
-
-
 /* ------------------------------
    Footer Content
 ------------------------------ */
@@ -141,7 +173,7 @@ const grassContainer = document.querySelector('.grass-container');
     flower.style.animationDelay = `-${Math.random() * 4}s`;
 
     // random scale 0.6 .. 1.3
-    const scale = (0.3 + Math.random() * 0.6);
+    const scale = (0.2 + Math.random() * 0.6);
     flower.style.setProperty('--scale', scale.toFixed(2));
 
     // stalk length proportional to scale (tweak constants to taste)
@@ -169,7 +201,8 @@ const grassContainer = document.querySelector('.grass-container');
 /* ------------------------------
    Event Listeners & Init
 ------------------------------ */
+animate();
+startShootingStars();
+resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
 
-resizeCanvas();
-startShootingStars();

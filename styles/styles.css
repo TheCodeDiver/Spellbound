@@ -27,17 +27,35 @@ body {
   width: 100%;
   padding: 1rem 2rem;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: center;
+  align-items: center; /* allow vertical stacking */
   background: rgba(65, 61, 126, 0.4);
-  backdrop-filter: blur(8px);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
   z-index: 1000;
+  transition: max-height 0.4s ease; /* smooth expand */
+  overflow: hidden;
+  max-height: 72px; 
 }
 
+.navbar > .top-row {
+  display: flex;
+  justify-content: center; /* pushes items to edges */
+  align-items: center;
+  width: 10%;
+}
+
+/* Links */
 .nav-links {
   list-style: none;
   display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
   gap: 2rem;
+  margin: 0;
+  padding: 0;
+  font-size: 1.3rem;
 }
 
 .nav-links a {
@@ -56,21 +74,21 @@ body {
 .menu-toggle {
   display: none;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   gap: 0.4rem;
   cursor: pointer;
   z-index: 1100;
-  border: none;          /* reset button */
-  background: none;      /* reset button */
+  border: none;        
+  background: none;     
   padding: 0;
 }
 
 .menu-toggle:focus {
-  outline: none;         /* remove default outline */
+  outline: none;         
 }
 
 .menu-toggle:focus-visible {
-  outline: 2px solid #ffe6ff; /* accessible focus */
+  outline: 2px solid #ffe6ff; 
   outline-offset: 4px;
 }
 
@@ -101,7 +119,7 @@ body {
     box-shadow:
     0 0 3px #fff,
     0 0 6px #9cf,
-    0 0 10px #fff; /* layered glow to create twinkle effect */
+    0 0 10px #fff;
     animation: twinkle 1.5s infinite alternate;
 }
 
@@ -115,6 +133,10 @@ body {
 /* ------------------------------
    Logo
 ------------------------------ */
+.logo {
+  margin-left: auto; /* push it to the right in flex container */
+}
+
 .logo-img {
   display: block;
   height: 40px;
@@ -132,7 +154,7 @@ body {
     filter: drop-shadow(0 0 2px #fff) drop-shadow(0 0 4px #9cf);
   }
   50% {
-    transform: scale(1.03); /* slightly bigger */
+    transform: scale(1.03); 
     filter: drop-shadow(0 0 6px #fff) drop-shadow(0 0 12px #9cf);
   }
 }
@@ -153,6 +175,11 @@ body {
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
+.section:first-of-type {
+  margin-top: 80px; /* same height as navbar */
+}
+
+
 .section h1,
 .section h2 {
   margin-bottom: 1rem;
@@ -161,7 +188,7 @@ body {
 
 .section p,
 .section li {
-  color: #688AA8;
+  color: #4d6981;
   line-height: 1.6;
 }
 
@@ -220,21 +247,19 @@ body {
 /* Flower wrapper: scale is applied here, so animation won't overwrite it */
 .flower {
   position: absolute;
-  bottom: 35px; /* move flowers above the grass; tweak as needed */
+  bottom: 25px; 
   width: 20px;
   height: 20px;
   transform: scale(var(--scale, 1));
   z-index: 5;
   --petal-color: #FFB6C1;
-  --stalk-length: 28px; /* default */
+  --stalk-length: 50px; /* default */
 }
 
 /* STALK: grows downward from the petals */
 .flower::before {
   content: '';
   position: absolute;
-  /* place the top of the stalk at the bottom edge of the flower,
-     then extend it downward by the stalk length */
   bottom: calc(0px - var(--stalk-length, 28px));
   left: 50%;
   transform: translateX(-50%);
@@ -345,31 +370,101 @@ body {
    Mobile Responsiveness
 ------------------------------ */
 @media (max-width: 768px) {
+  /* Mobile menu toggle button */
   .menu-toggle {
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 0.4rem;
+    cursor: pointer;
+    border: none;
+    background: none;
+    padding: 0;
+    z-index: 1100;
   }
 
-.nav-links {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
+  .menu-toggle .nav_star {
+    display: block;
+    width: 6px;
+    height: 6px;
+    background: #fff;
+    border-radius: 50%;
+    box-shadow:
+      0 0 3px #fff,
+      0 0 6px #9cf,
+      0 0 10px #fff;
+    animation: twinkle 1.5s infinite alternate;
+  }
+
+  /* Navbar: vertical stacking and collapse */
+  .navbar {
+    flex-direction: column-reverse; /* stack top-row + links */
+    max-height: 72px;       /* collapsed height for top row */
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+  }
+
+  /* Navbar when active (expanded) */
+  .navbar.active {
+    max-height: 500px; /* enough to fit all links */
+    border-radius: 0 0 15px 15px;
+  }
+
+  /* Top row (logo + toggle) stays side by side */
+  .navbar > .top-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+  }
+
+  /* Nav links inside the navbar */
+  .nav-links {
+    list-style: none;
     flex-direction: column;
     align-items: center;
     gap: 1.5rem;
-    padding: 1rem;
-    border-radius: 0 0 1rem 1rem;
-    background: rgba(65, 61, 126, 0.4);
+    width: 100%;
+    padding: 0;             /* start collapsed */
     
-}
+    max-height: 0;           /* collapsed */
+    opacity: 0;              /* invisible */
+    overflow: hidden;
+    transition: max-height 0.4s ease, opacity 0.4s ease, padding 0.4s ease;
+  }
 
+  /* Expanded state for nav links */
+  .navbar.active .nav-links {
+    max-height: 500px;
+    opacity: 1;
+    padding: 1rem 0;
+  }
 
-  .nav-links.active {
-    display: flex;
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
+  /* Smooth close animation using a "closing" class */
+  .navbar.closing .nav-links {
+    max-height: 0;
+    opacity: 0;
+    padding: 0;
+  }
+
+  /* Links styling */
+  .nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-weight: 500;
+    transition: all 0.4s ease;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.5rem;
+  }
+
+  .nav-links a:hover {
+    color: #ffe6ff;
+    text-shadow: 0 0 6px #fff, 0 0 12px #9cf;
+    background: rgba(255, 255, 255, 0.05);
+    transform: scale(1.05);
   }
 }
+
 
 /* ------------------------------
    Background Gradient
