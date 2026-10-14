@@ -6,13 +6,16 @@ const navbar = document.querySelector('.navbar');
 const navLinks = document.querySelectorAll('.nav-links a');
 
 menuToggle.addEventListener('click', () => {
-  menuToggle.classList.toggle('open');
-  navbar.classList.toggle('active');
+  const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+  menuToggle.setAttribute('aria-expanded', String(!isExpanded));
+  menuToggle.classList.toggle('open', !isExpanded);
+  navbar.classList.toggle('active', !isExpanded);
 });
 
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
     menuToggle.classList.remove('open');
+    menuToggle.setAttribute('aria-expanded', 'false');
 
     // Instead of immediately removing 'active', toggle a 'closing' class
     navbar.classList.add('closing');
@@ -205,4 +208,3 @@ animate();
 startShootingStars();
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
-
